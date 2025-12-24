@@ -1,12 +1,13 @@
+using Dalamud.Interface;
+using Dalamud.Interface.Utility;
 using Dalamud.Interface.ImGuiNotification;
 using Dalamud.Bindings.ImGui;
 using ElliLib.Classes;
 using ElliLib.Raii;
 using ElliLib.Text;
 using ElliLib.Widgets;
-using ElliLib.Internal.Enums;
 
-namespace OtterGui.Custom;
+namespace ElliLib.Widgets;
 
 public static class CustomGui
 {
@@ -64,7 +65,7 @@ public static class CustomGui
         const string patreonAddress = "https://www.patreon.com/Ottermandias";
         var          half           = size with { X = size.X / 2 };
 
-        switch (ToggleButton.SplitButton((ImGuiId)5, new ToggleButton.SplitButtonData()
+        switch (ToggleButton.SplitButton((ElliLib.Internal.Enums.ImGuiId)5, new ToggleButton.SplitButtonData()
                 {
                     Label      = "Ko-Fi"u8,
                     Active     = 0xFF5B5EFFu,

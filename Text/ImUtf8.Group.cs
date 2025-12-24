@@ -1,4 +1,4 @@
-using Group = OtterGui.Text.EndObjects.Group;
+using Group = ElliLib.Text.EndObjects.Group;
 
 namespace ElliLib.Text;
 

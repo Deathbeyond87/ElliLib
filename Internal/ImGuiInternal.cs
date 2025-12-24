@@ -1,5 +1,4 @@
 using Dalamud.Bindings.ImGui;
-using ElliLib.OtterGuiInternal.Enums;
 using ElliLib.Internal.Enums;
 using ElliLib.Internal.Structs;
 using ElliLib.Internal.Utility;

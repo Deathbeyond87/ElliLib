@@ -1,4 +1,4 @@
-namespace OtterGui.OtterGuiInternal.Enums;
+namespace ElliLib.Internal.Enums;
 
 [Flags]
 public enum ImGuiInputFlags : ulong
