@@ -169,4 +169,22 @@ public static class ArrayExtensions
     /// <inheritdoc cref="WriteHexByteDiff(ReadOnlySpan{byte},ReadOnlySpan{byte})"/>
     public static string WriteHexByteDiff(this Span<byte> bytes, ReadOnlySpan<byte> diff)
         => ((ReadOnlySpan<byte>)bytes).WriteHexByteDiff(diff);
+
+    public static Vector3 Average(this IEnumerable<Vector3> source)
+    {
+        ArgumentNullException.ThrowIfNull(source);
+
+        var sum = Vector3.Zero;
+        var cnt = 0;
+
+        foreach (var v in source)
+        {
+            sum += v;
+            cnt++;
+        }
+
+        if (cnt == 0) throw new InvalidOperationException("Sequence contains no elements");
+
+        return sum / cnt;
+    }
 }
