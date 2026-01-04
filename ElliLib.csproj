@@ -10,6 +10,7 @@
         <Copyright>Copyright © 2025</Copyright>
         <WarningLevel>4</WarningLevel>
         <OutputPath>bin\$(Configuration)\</OutputPath>
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
     </PropertyGroup>
 
     <PropertyGroup>
