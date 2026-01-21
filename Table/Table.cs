@@ -55,6 +55,9 @@ public class Table<T>
 
     public int VisibleColumns { get; private set; }
 
+    public IReadOnlyList<(T Item, int Index)> GetFilteredItems()
+        => FilteredItems;
+
     public Table(string label, IReadOnlyCollection<T> items, params Column<T>[] headers)
     {
         Label          = label;
