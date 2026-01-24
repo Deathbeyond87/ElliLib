@@ -8,6 +8,9 @@ public partial class FileSystemSelector<T, TStateStorage>
 {
     public readonly string MoveLabel = string.Empty; // Gets set by setting the label itself.
 
+    public delegate void PathDroppedDelegate(List<KeyValuePair<string, FileSystem<T>.IPath>> movedPaths, FileSystem<T>.IPath targetPath);
+    public event PathDroppedDelegate PathDropped;
+
     // The currently moved object.
     private readonly Dictionary<string, FileSystem<T>.IPath>          _movedPathsDragDropCache = new();
     private          List<KeyValuePair<string, FileSystem<T>.IPath>>? _movedPathsDragDrop;
@@ -34,17 +37,28 @@ public partial class FileSystemSelector<T, TStateStorage>
         if (!_)
             return;
 
-        if (!ImGuiUtil.IsDropping(MoveLabel) || _movedPathsDragDrop == null)
-            return;
-
-        var paths = _movedPathsDragDrop;
-        _movedPathsDragDrop = null;
-        _fsActions.Enqueue(() =>
+        if (ImGuiUtil.IsDropping(MoveLabel))
         {
-            foreach (var (_, movedPath) in paths)
-                FileSystem.Move(movedPath, path as FileSystem<T>.Folder ?? path.Parent);
-        });
+            if (_movedPathsDragDrop == null)
+                return;
+
+            var paths = _movedPathsDragDrop;
+            _movedPathsDragDrop = null;
+            _fsActions.Enqueue(() =>
+            {
+                foreach (var (_, movedPath) in paths)
+                    FileSystem.Move(movedPath, path as FileSystem<T>.Folder ?? path.Parent);
+
+                PathDropped?.Invoke(paths, path);
+            });
+        }
+        else
+        {
+            HandleDragDrop(path);
+        }
     }
+
+    protected virtual void HandleDragDrop(FileSystem<T>.IPath path) { }
 
     private List<KeyValuePair<string, FileSystem<T>.IPath>> MoveList(FileSystem<T>.IPath path)
     {
